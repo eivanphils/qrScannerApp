@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DataLocalService } from '../../services/data-local.service';
+import { Register } from '../../models/register.model';
 
 @Component({
   selector: 'app-tab2',
@@ -8,7 +9,13 @@ import { DataLocalService } from '../../services/data-local.service';
 })
 export class Tab2Page {
 
-  constructor(protected dataLocalService: DataLocalService) {}
+  constructor(
+    protected dataLocalService: DataLocalService
+    ) {}
+
+  openCode(scannerCode: Register) {
+   this.dataLocalService.openCode(scannerCode);
+  }
 
   sendMail() {}
 }

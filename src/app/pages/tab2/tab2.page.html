@@ -15,15 +15,26 @@
 
 <ion-content>
 
-  <ion-list>
+  <ion-list *ngIf="dataLocalService.savedCodes.length > 0">
     <ion-item detail
-              *ngFor="let item of dataLocalService.savedCodes">
-      <ion-icon slot="start" [name]="item.icon"></ion-icon>
+              *ngFor="let item of dataLocalService.savedCodes"
+              (click)="openCode(item)">
+      <ion-icon slot="start"
+                color="primary"
+                [name]="item.icon"></ion-icon>
       <ion-label>
         <h2>{{item.text}}</h2>
         <p>{{item.created | date: 'medium'}}</p>
       </ion-label>
     </ion-item>
   </ion-list>
+
+  <ion-grid fixed *ngIf="dataLocalService.savedCodes.length == 0">
+    <ion-row>
+      <ion-col>
+        <ion-label>No códigos guardados</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
