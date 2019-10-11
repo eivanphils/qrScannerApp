@@ -1,6 +1,8 @@
 {
   "name": "qrScannerApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "a2e17c76"
 }
