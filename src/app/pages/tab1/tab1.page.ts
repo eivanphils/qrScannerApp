@@ -19,12 +19,10 @@ export class Tab1Page {
 
   scanCode() {
     this.barcodeScanner.scan().then (barcodeData => {
-      console.log('barcodedata', barcodeData);
       this.dataLocalService.saveCodeScanned(barcodeData.format, barcodeData.text);
 
     }).catch(err => {
       console.log('Error', err);
-      this.dataLocalService.saveCodeScanned('QrCode', 'geo:-33.4524179,-70.6919937');
     });
   }
 }
