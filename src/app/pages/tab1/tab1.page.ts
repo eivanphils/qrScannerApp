@@ -24,7 +24,7 @@ export class Tab1Page {
 
     }).catch(err => {
       console.log('Error', err);
-      this.dataLocalService.saveCodeScanned('QrCode', 'https://google.com');
+      this.dataLocalService.saveCodeScanned('QrCode', 'geo:-33.4524179,-70.6919937');
     });
   }
 }

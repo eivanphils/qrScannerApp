@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Register } from '../models/register.model';
 import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
+import { MapComponent } from '../components/map/map.component';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class DataLocalService {
   constructor(
     private storage: Storage,
     private iab: InAppBrowser,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private modalCtrl: ModalController
   ) {
     this.getSavedCodes();
    }
@@ -39,6 +41,22 @@ export class DataLocalService {
       this.iab.create(scannerCode.text, '_system');
     }
 
-    if (scannerCode.type === 'geo') {}
+    if (scannerCode.type === 'geo') {
+      this.presentModal(scannerCode.text);
+    }
+  }
+
+  async presentModal(geo: string) {
+    const data = geo.substr(4).split(',');
+
+    const modal = await this.modalCtrl.create({
+      component: MapComponent,
+      componentProps: {
+        latitude: Number(data[0]),
+        longitude: Number(data[1])
+      }
+    });
+
+    return await modal.present();
   }
 }
