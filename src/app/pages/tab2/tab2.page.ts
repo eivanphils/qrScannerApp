@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { DataLocalService } from '../../services/data-local.service';
 import { Register } from '../../models/register.model';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { QrModalComponent } from '../../components/qr-modal/qr-modal.component';
 
 @Component({
   selector: 'app-tab2',
@@ -12,7 +13,8 @@ export class Tab2Page {
 
   constructor(
     protected dataLocalService: DataLocalService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private modalCtr: ModalController
     ) {}
 
   openCode(scannerCode: Register) {
@@ -51,5 +53,16 @@ export class Tab2Page {
     });
 
     await alert.present();
+  }
+
+  async generateQr(scannerCode: Register) {
+    const modal = await this.modalCtr.create({
+      component: QrModalComponent,
+      componentProps: {
+        scannerCode
+      }
+    });
+
+    await modal.present();
   }
 }

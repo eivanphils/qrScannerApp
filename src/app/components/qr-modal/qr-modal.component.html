@@ -1,0 +1,25 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close-circle" slot="icon-only" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  
+    <ion-title text-capitalize>Código Qr</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div *ngIf="encodeData">
+        <p>
+          Scanned Code Text : <b>{{ encodeData["text"] }}</b>
+        </p>
+        <p>
+          Scanned Code Format : <b>{{ encodeData["format"] }}</b>
+        </p>
+      </div>
+      {{encodeData | json}}
+  <pre>
+  </pre>
+</ion-content>
