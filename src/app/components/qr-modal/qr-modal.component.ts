@@ -19,15 +19,20 @@ export class QrModalComponent implements OnInit {
 
   ngOnInit() {
     console.log('open modal');
+    debugger
+
     this.generateQrCode();
   }
 
   generateQrCode() {
+
     this.barcodeScanner
       .encode(this.barcodeScanner.Encode.TEXT_TYPE, this.scannerCode)
       .then(
-        encodedData => {
-          this.encodeData = encodedData;
+        response => {
+          this.encodeData = response;
+          console.log(this.encodeData);
+
         },
         err => {
           console.log(err);

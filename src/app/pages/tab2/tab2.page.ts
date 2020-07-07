@@ -3,6 +3,7 @@ import { DataLocalService } from '../../services/data-local.service';
 import { Register } from '../../models/register.model';
 import { AlertController, ModalController } from '@ionic/angular';
 import { QrModalComponent } from '../../components/qr-modal/qr-modal.component';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-tab2',
@@ -14,7 +15,8 @@ export class Tab2Page {
   constructor(
     protected dataLocalService: DataLocalService,
     private alertCtrl: AlertController,
-    private modalCtr: ModalController
+    private modalCtr: ModalController,
+    private barcodeScanner: BarcodeScanner
     ) {}
 
   openCode(scannerCode: Register) {
@@ -55,14 +57,17 @@ export class Tab2Page {
     await alert.present();
   }
 
-  async generateQr(scannerCode: Register) {
-    const modal = await this.modalCtr.create({
-      component: QrModalComponent,
-      componentProps: {
-        scannerCode
-      }
-    });
+  generateQr(scannerCode: Register) {
+    this.barcodeScanner
+    .encode(this.barcodeScanner.Encode.TEXT_TYPE, scannerCode)
+    .then(
+      response => {
+        console.log(response);
 
-    await modal.present();
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 }
